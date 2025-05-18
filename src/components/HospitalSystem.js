@@ -77,9 +77,9 @@ const HospitalSystem = () => {
 
   // แก้ไขคนไข้ - ส่งข้อมูลไป backend แล้วโหลดข้อมูลใหม่
   const handleUpdatePatient = async (patientData) => {
-    if (!selectedPatient) return;
+    if (!selectedPatient || !selectedPatient.patient_id) return;
     try {
-      await axios.put(`http://localhost:5000/api/patients/${selectedPatient.id}`, patientData);
+      await axios.put(`http://localhost:5000/api/patients/${selectedPatient.patient_id}`, patientData);
       setSelectedPatient(null);
       fetchPatients();
       setCurrentPage('patients');
@@ -88,6 +88,7 @@ const HospitalSystem = () => {
       console.error(error);
     }
   };
+
 
   // ลบคนไข้ - ส่งคำขอลบ backend แล้วโหลดข้อมูลใหม่
   const handleDeletePatient = async (id) => {
